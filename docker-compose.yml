@@ -1,20 +1,20 @@
 version: '3'
 services:
-  postgres_db:
-    image: 'postgres:latest'
-    hostname: postgres_db 
-    restart: always
-    volumes:
-      - /test/demo_ciencias/data:/var/lib/postgresql/data
-      - ./DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_DB: demo
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - '5432:5432'
-    networks:
-      - democ
+  # postgres_db:
+  #   image: 'postgres:latest'
+  #   hostname: postgres_db 
+  #   restart: always
+  #   volumes:
+  #     - /test/demo_ciencias/data:/var/lib/postgresql/data
+  #     - ./DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_DB: demo
+  #     POSTGRES_PASSWORD: postgres
+  #   ports:
+  #     - '5432:5432'
+  #   networks:
+  #     - democ
   
   processing:
     image: jmorin98/processing:latest
