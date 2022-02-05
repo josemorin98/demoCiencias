@@ -1,0 +1,57 @@
+version: '3'
+services:
+  postgres_db:
+    image: 'postgres:latest'
+    hostname: postgres_db 
+    restart: always
+    volumes:
+      - /test/demo_ciencias/data:/var/lib/postgresql/data
+      - ./DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: demo
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - democ
+  
+  processing:
+    image: jmorin98/processing:latest
+    restart: always
+    hostname: processing
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: demo
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres_db
+    ports:
+      - 5000:5000
+    networks:
+      - democ
+  
+  plot:
+    image: jmorin98/plot:latest
+    restart: always
+    hostname: plot
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: demo
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_HOST: postgres_db
+      SINK_PATH: /app/plots
+    ports:
+      - 5001:5000
+    networks:
+      - democ
+    volumes:
+      - "/test/demo_ciencias/plots:/app/plots"
+
+networks:
+  democ:
+
+volumes:
+  pgdata:
+    driver: local
