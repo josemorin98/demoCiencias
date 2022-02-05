@@ -12,3 +12,11 @@ El demo consiste en 4 contenedores con las siguientes características:
 El diseño del demo queda de la siguiente manera:
 
 ![Arquitectura](./arq.png "Arquitectura")
+
+# Docker RUN
+
+Para poder ejcutar los contenedores se necesita el siguiente comando:
+
+- Container 1 (Postgres):
+
+`docker run postgres:latest `
