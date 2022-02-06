@@ -22,6 +22,6 @@ url = "http://localhost:5000/api/v1/xy"
 
 apis = ["xy","z_sum","z_divide","z_product","z_substract","z_operator"]
 for api in apis:
-    url = "http://localhost:5001/api/v1/{}".format(api)
+    url = "http://localhost:5001/api/v1/plot/{}".format(api)
     response = requests.get(url, headers=headers)
     print(response.status_code)
