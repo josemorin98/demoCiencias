@@ -86,7 +86,7 @@ def plotBoxplot(resultJson,name):
     plt.cla()
     return nameFile
 
-@app.route('/api/v1/xy', methods = ['GET'])
+@app.route('/api/v1/plot/xy', methods = ['GET'])
 def xOperations():
     if (request.method == 'GET'):
         # get values in x
@@ -107,7 +107,7 @@ def xOperations():
 
 
 # SUMARA LA COLUMNA X E Y
-@app.route('/api/v1/z_sum', methods = ['GET','POST'])
+@app.route('/api/v1/plot/z_sum', methods = ['GET','POST'])
 def zSum():
     if (request.method == 'GET'):
         db = get_db()
@@ -122,7 +122,7 @@ def zSum():
         return 'Select method GET'
 
 # MULTIPLICARA LA COLUMNA X E Y
-@app.route('/api/v1/z_product', methods = ['GET','POST'])
+@app.route('/api/v1/plot/z_product', methods = ['GET','POST'])
 def zPro():
     if (request.method == 'GET'):
         db = get_db()
@@ -138,7 +138,7 @@ def zPro():
 
 
 # DIVIDE LA COLUMNA X E Y
-@app.route('/api/v1/z_divide', methods = ['GET','POST'])
+@app.route('/api/v1/plot/z_divide', methods = ['GET','POST'])
 def zDiv():
     if (request.method == 'GET'):
         db = get_db()
@@ -152,7 +152,7 @@ def zDiv():
 
 
 # RESTA LA COLUMNA X E Y
-@app.route('/api/v1/z_substract', methods = ['GET','POST'])
+@app.route('/api/v1/plot/z_substract', methods = ['GET','POST'])
 def zSub():
     if (request.method == 'GET'):
         db = get_db()
@@ -165,7 +165,7 @@ def zSub():
         return send_file(nameFile, mimetype='image/png')
 
 # RESTA LA COLUMNA X E Y
-@app.route('/api/v1/z_operator', methods = ['GET','POST'])
+@app.route('/api/v1/plot/z_operator', methods = ['GET','POST'])
 def zOperators():
     if (request.method == 'GET'):
         # get values in x

@@ -22,9 +22,7 @@ def calculateOperations():
     response = requests.post(url)
     print("Operators done {}".format(response.status_code))
 
-
 if __name__ == "__main__":
     loadData()
     print("_"*100)
     calculateOperations()
-

@@ -72,7 +72,7 @@ def get_db():
                           db   = os.environ.get("POSTGRES_DB","demo"))
     return g.db
 
-@app.route('/api/v1/xy', methods = ['GET', 'POST'])
+@app.route('/api/v1/processing/xy', methods = ['GET', 'POST'])
 def xOperations():
     if (request.method == 'POST'):
         # guardamos los valores de x e y
@@ -96,7 +96,7 @@ def xOperations():
 
 
 # SUMARA LA COLUMNA X E Y
-@app.route('/api/v1/z_sum', methods = ['GET','POST'])
+@app.route('/api/v1/processing/z_sum', methods = ['GET','POST'])
 def zSum():
     if (request.method == 'POST'):
         # guardamos los valores de x e y
@@ -115,7 +115,7 @@ def zSum():
         return {"X":x,"Y":y, "Z_SUM":z}
 
 # MULTIPLICARA LA COLUMNA X E Y
-@app.route('/api/v1/z_product', methods = ['GET','POST'])
+@app.route('/api/v1/processing/z_product', methods = ['GET','POST'])
 def zPro():
     if (request.method == 'POST'):
         # guardamos los valores de x e y
@@ -135,7 +135,7 @@ def zPro():
 
 
 # DIVIDE LA COLUMNA X E Y
-@app.route('/api/v1/z_divide', methods = ['GET','POST'])
+@app.route('/api/v1/processing/z_divide', methods = ['GET','POST'])
 def zDiv():
     if (request.method == 'POST'):
         # guardamos los valores de x e y
@@ -155,7 +155,7 @@ def zDiv():
 
 
 # RESTA LA COLUMNA X E Y
-@app.route('/api/v1/z_substract', methods = ['GET','POST'])
+@app.route('/api/v1/processing/z_substract', methods = ['GET','POST'])
 def zSub():
     if (request.method == 'POST'):
         # guardamos los valores de x e y
@@ -174,7 +174,7 @@ def zSub():
         return {"X":x,"Y":y, "Z_SUBSTRACT":z}
 
 # RESTA LA COLUMNA X E Y
-@app.route('/api/v1/z_operator', methods = ['GET','POST'])
+@app.route('/api/v1/processing/z_operator', methods = ['GET','POST'])
 def zOperators():
     if (request.method == 'POST'):
         # guardamos los valores de x e y
