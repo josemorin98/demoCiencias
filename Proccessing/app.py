@@ -199,7 +199,7 @@ def zOperators():
         return resultJson
 
 
-@app.route('/', methods = ['GET'])
+@app.route('/api/v1/test', methods = ['GET'])
 def ok():
     return "OK :)"
 

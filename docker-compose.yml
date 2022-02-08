@@ -1,5 +1,19 @@
 version: '3'
 services:
+  middleware:
+    image: "nachocode/demo-middleware"
+    hostname: middleware
+    restart: always
+    environment:
+      MODE: "DISTRIBUTED"
+      NODE_PORT: 3000
+      NODE_HOST: "0.0.0.0"
+      DEBUG: ""
+    ports:
+      - "3000:3000"
+    networks:
+      - democ
+
   postgres_db:
     image: 'postgres:latest'
     hostname: postgres_db 
