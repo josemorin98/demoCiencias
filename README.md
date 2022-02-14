@@ -63,7 +63,7 @@ Comando terminal:
 
 Ejemplo:
 
-`docker run --name postgres_db -e POSTGRES_USER=posgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /test/demo_ciencias/data:/var/lib/postgresql/data -v /home/usuario/DEMO_CIENCIAS_DATOS/DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql --hostname postgres_db --network=demo_net postgres:latest`
+`docker run --name postgres_db -e POSTGRES_USER=postgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /test/demo_ciencias/data:/var/lib/postgresql/data -v /home/usuario/DEMO_CIENCIAS_DATOS/DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql --hostname postgres_db --network=demo_net postgres:latest`
 
 La tabla tiene el nombre de ciencias y se configura dentro del archivo `init.sql` y se conforma de la siguiente manera:
 
