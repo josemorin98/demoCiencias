@@ -20,6 +20,13 @@ Para poder utilizar este demo es necesario tener instalado las siguientes herram
 - Docker
 - Python 3
 
+Descargar las imágenes de los contenedores:
+
+- docker pull postgres:latest
+- docker pull jmorin98/processing
+- docker pull jmorin98/plot
+- docker pull nachocode/demo-middleware
+
 # Docker RUN
 
 #### Red Docker
