@@ -51,7 +51,7 @@ Nombre de imagen:
 
 - postgres:latest
 
-Variables de entrono requeridas:
+Variables de entorno:
 
 - POSTGRES_USER
 - POSTGRES_DB
@@ -77,7 +77,7 @@ Nombre de imagen:
 
 - jmorin98/processing:latest
 
-Variables de entrono requeridas:
+Variables de entorno:
 
 - POSTGRES_USER
 - POSTGRES_DB
@@ -120,7 +120,7 @@ Nombre de imagen:
 
 - jmorin98/plot:latest
 
-Variables de entrono requeridas:
+Variables de entorno:
 
 - POSTGRES_USER
 - POSTGRES_DB
@@ -159,7 +159,7 @@ Nombre de imagen:
 
 - nachocode/demo-middleware:latest
 
-Variables de entrono:
+Variables de entorno:
 
 - MODE: Recibe los valores LOCAL || DISTRIBUTED. Cuando recibe LOCAL, se comunica usando la red local. Cuando recibe DISTRIBUTED se comunica empleando una red virtual de docker. 
 - NODE_PORT: Puerto del nodo en el HOST.
