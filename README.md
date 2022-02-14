@@ -31,7 +31,7 @@ Descargar las imágenes de los contenedores:
 
 #### Red Docker
 
-Antes de generar los contenedores sobre las imagenes es necesario crear una red de docker, se genera con el siguiente comando:
+Antes de generar los contenedores sobre las imágenes es necesario crear una red de docker, se genera con el siguiente comando:
 
 Comando terminal:
 
@@ -41,11 +41,11 @@ Ejemplo:
 
 `docker network create  --driver=bridge my-net`
 
-Para poder ejcutar los contenedores se necesita el siguiente comando:
+Para poder ejecutar los contenedores se necesita el siguiente comando:
 
 #### Container 1 - Postgres
 
-Contenedor encargado de almacenar los datos generados por los usuarios (**NOTA:** se requiere ejecutar este contenedor primero que todos debido a que los demas dependen de la base de datos).
+Contenedor encargado de almacenar los datos generados por los usuarios (**NOTA:** se requiere ejecutar este contenedor primero que todos debido a que los demás dependen de la base de datos).
 
 Nombre de imagen:
 
@@ -71,7 +71,7 @@ La tabla tiene el nombre de ciencias y se configura dentro del archivo `init.sql
 
 #### Container 2 - Processing
 
-Contenedor encargado de generar las operaciones básicas sobre los datos almacenadoS dentro de la base de datos (*Container 1*) y retornar al usuario los valores obtenidos.
+Contenedor encargado de generar las operaciones básicas sobre los datos almacenados dentro de la base de datos (*Container 1*) y retornar al usuario los valores obtenidos.
 
 Nombre de imagen:
 
@@ -161,10 +161,10 @@ Nombre de imagen:
 
 Variables de entorno:
 
-- MODE: Recibe los valores LOCAL || DISTRIBUTED. Cuando recibe LOCAL, se comunica usando la red local. Cuando recibe DISTRIBUTED se comunica empleando una red virtual de docker. 
+- MODE: Recibe los valores LOCAL || DISTRIBUTED. Cuando recibe LOCAL, se comunica usando la red local. Cuando recibe DISTRIBUTED se comunica empleando una red virtual de docker.
 - NODE_PORT: Puerto del nodo en el HOST.
 - NODE_HOST: Recibe el valor de 0.0.0.0 para que permita recibir peticiones de cualquier dirección IP.
-- DEBUG: Recibe True o False, respectivamente activa el modo prueba o desactiva el modo de prueba. 
+- DEBUG: Recibe True o False, respectivamente activa el modo prueba o desactiva el modo de prueba.
 
 Comando terminal:
 
@@ -173,12 +173,11 @@ Comando terminal:
 Ejemplo:
 `docker run --name middleware  -e MODE=DISTRIBUTED -e NODE_PORT=6666 -e NODE_HOST="0.0.0.0" -e DEBUG="False" -p 6666:6666 --hostname middleware --network=my-net nachocode/demo-middleware`
 
-
 API REST:
 
 Rutas que conforman este contenedor para ser utilizado:
 
-| RUTA                     | MÉTODO | DESCRIPCIÓN                                                |
-| ------------------------ | ------- | ----------------------------------------------------------- |
-| /api/v1/processing/[path]          | POST / GET     | Redirige las peticiones al servicio de procesamiento|
-| /api/v1/plot/[path]       | POST / GET     | Redirige las peticiones al servicio de visualizaciòn |
+| RUTA                      | MÉTODO    | DESCRIPCIÓN                                          |
+| ------------------------- | ---------- | ----------------------------------------------------- |
+| /api/v1/processing/[path] | POST / GET | Redirige las peticiones al servicio de procesamiento  |
+| /api/v1/plot/[path]       | POST / GET | Redirige las peticiones al servicio de visualizaciòn |
