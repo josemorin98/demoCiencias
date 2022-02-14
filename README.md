@@ -11,7 +11,7 @@ El demo consiste en 4 contenedores con las siguientes características:
 
 El diseño del demo queda de la siguiente manera:
 
-![Arquitectura](./arq.png "Arquitectura")
+![Arquitectura](./images/arq.png "Arquitectura")
 
 # Requisitos
 
@@ -146,7 +146,7 @@ Rutas que conforman este contenedor para ser utilizado:
 
 Componente de software que permite la interacción con diferentes servicios, permitiendo así gestionar la comunicación entre un usuario y una piscina de servicios.
 
-![Middelware](./middleware.png "Middleware")
+![Middelware](./images/middleware.png "Middleware")
 
 Nombre de imagen:
 
@@ -157,7 +157,7 @@ Variables de entrono:
 - MODE: Recibe los valores LOCAL || DISTRIBUTED. Cuando recibe LOCAL, se comunica usando la red local. Cuando recibe DISTRIBUTED se comunica empleando una red virtual de docker. 
 - NODE_PORT: Puerto del nodo en el HOST.
 - NODE_HOST: Recibe el valor de 0.0.0.0 para que permita recibir peticiones de cualquier dirección IP.
-- DEBUG: RECIBE True o False, respectivamente activa el modo prueba o desactiva el modo de prueba. 
+- DEBUG: Recibe True o False, respectivamente activa el modo prueba o desactiva el modo de prueba. 
 
 Comando terminal:
 
@@ -167,12 +167,11 @@ Ejemplo:
 `docker run --name middleware  -e MODE=DISTRIBUTED -e NODE_PORT=6666 -e NODE_HOST="0.0.0.0" -e DEBUG="False" -p 6666:6666 --hostname middleware --network=my-net nachocode/demo-middleware`
 
 
-API REST
+API REST:
 
 Rutas que conforman este contenedor para ser utilizado:
 
 | RUTA                     | MÉTODO | DESCRIPCIÓN                                                |
 | ------------------------ | ------- | ----------------------------------------------------------- |
-| /api/v1/processing/[path]          | POST / GET     | Redirige las peticiones al servicio de procesamiento
-          |
+| /api/v1/processing/[path]          | POST / GET     | Redirige las peticiones al servicio de procesamiento|
 | /api/v1/plot/[path]       | POST / GET     | Redirige las peticiones al servicio de visualizaciòn |
