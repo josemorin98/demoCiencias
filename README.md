@@ -11,7 +11,7 @@ El demo consiste en 4 contenedores con las siguientes características:
 
 El diseño del demo queda de la siguiente manera:
 
-![Arquitectura](./arq.png "Arquitectura")
+![Arquitectura](./images/arq.png "Arquitectura")
 
 # Requisitos
 
@@ -19,6 +19,13 @@ Para poder utilizar este demo es necesario tener instalado las siguientes herram
 
 - Docker
 - Python 3
+
+Descargar las imágenes de los contenedores:
+
+- docker pull postgres:latest
+- docker pull jmorin98/processing
+- docker pull jmorin98/plot
+- docker pull nachocode/demo-middleware
 
 # Docker RUN
 
@@ -28,11 +35,11 @@ Antes de generar los contenedores sobre las imagenes es necesario crear una red 
 
 Comando terminal:
 
-`docker network create [NAME_NETWORK]`
+`docker network create [NETWORK_NAME]`
 
 Ejemplo:
 
-`docker network create demo_net`
+`docker network create  --driver=bridge my-net`
 
 Para poder ejcutar los contenedores se necesita el siguiente comando:
 
@@ -40,11 +47,11 @@ Para poder ejcutar los contenedores se necesita el siguiente comando:
 
 Contenedor encargado de almacenar los datos generados por los usuarios (**NOTA:** se requiere ejecutar este contenedor primero que todos debido a que los demas dependen de la base de datos).
 
-Nombre del contenedor:
+Nombre de imagen:
 
 - postgres:latest
 
-Variables de entrono requeridas:
+Variables de entorno:
 
 - POSTGRES_USER
 - POSTGRES_DB
@@ -52,13 +59,13 @@ Variables de entrono requeridas:
 
 Comando terminal:
 
-`docker run --name [NAME_CONTAINER] -e POSTGRES_USER=[NAME_USER] -e POSTGRES_DB=[NAME_BD] -e POSTGRES_PASSWORD=[PASDWORD] -p [LOCAL_PORT]:5432 -v [LOCAL_VOLUMEN]:/var/lib/postgresql/data -v [LOCAL_VOLUMEN_INIT_SQL]:/docker-entrypoint-initdb.d/initsql --hostname [NAME_CONTAINER] --network=[NAME_NETWORK] postgres:latest`
+`docker run --name [CONTAINER_NAME] -e POSTGRES_USER=[POSTGRES_USER] -e POSTGRES_DB=[POSTGRES_BD] -e POSTGRES_PASSWORD=[POSTGRES_PASSWORD] -p [LOCAL_PORT]:5432 -v [LOCAL_VOLUMEN]:/var/lib/postgresql/data -v [LOCAL_VOLUMEN_INIT_SQL]:/docker-entrypoint-initdb.d/initsql --hostname [CONTAINER_NAME] --network=[NETWORK_NAME] postgres:latest`
 
 Ejemplo:
 
-`docker run --name postgres_db -e POSTGRES_USER=posgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /test/demo_ciencias/data:/var/lib/postgresql/data -v /home/usuario/DEMO_CIENCIAS_DATOS/DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql --hostname postgres_db --network=demo_net postgres:latest`
+`docker run --name postgres_db -e POSTGRES_USER=postgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /test/demo_ciencias/data:/var/lib/postgresql/data -v /home/usuario/DEMO_CIENCIAS_DATOS/DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql --hostname postgres_db --network=demo_net postgres:latest`
 
-La tabla tiene el nombre de ciencias y se configura dentro del archivo `init.sql` y se conforma de la sigueinte manera:
+La tabla tiene el nombre de ciencias y se configura dentro del archivo `init.sql` y se conforma de la siguiente manera:
 
 `CREATE TABLE ciencias (x floatNOTNULL, y floatNOTNULL, z_SUM float, z_SUBSTRACT float, z_PRODUCT float, z_DIVIDE float )`
 
@@ -66,11 +73,11 @@ La tabla tiene el nombre de ciencias y se configura dentro del archivo `init.sql
 
 Contenedor encargado de generar las operaciones básicas sobre los datos almacenadoS dentro de la base de datos (*Container 1*) y retornar al usuario los valores obtenidos.
 
-Nombre del contenedor:
+Nombre de imagen:
 
 - jmorin98/processing:latest
 
-Variables de entrono requeridas:
+Variables de entorno:
 
 - POSTGRES_USER
 - POSTGRES_DB
@@ -80,7 +87,7 @@ Variables de entrono requeridas:
 
 Comando terminal:
 
-`docker run --name [NAME_CONTAINER] -e POSTGRES_USER=[USER_CONTAINER_POSTGRES] -e POSTGRES_DB=[BD_CONTAINER_POSTGRES] -e POSTGRES_PASSWORD=[PASSWORD_CONTAINER_POSTGRES] -e POSTGRES_PORT=[PORT_CONTAINER_POSTGRES] -e POSTGRES_HOST=[NAME_CONTAINER_POSTGRES] -p [LOCAL_PORT]:5000 --hostname [NAME_CONTAINER] --network=[NAME_NETWORK] jmorin98/processing:latest`
+`docker run --name [CONTAINER_NAME] -e POSTGRES_USER=[POSTGRES_USER] -e POSTGRES_DB=[POSTGRES_DB] -e POSTGRES_PASSWORD=[POSTGRES_PASSWORD] -e POSTGRES_PORT=[POSTGRES_PORT] -e POSTGRES_HOST=[POSTGRES_HOST] -p [LOCAL_PORT]:5000 --hostname [CONTAINER_NAME] --network=[NETWORK_NAME] jmorin98/processing:latest`
 
 Ejemplo:
 
@@ -109,11 +116,11 @@ Rutas que conforman este contenedor para ser utilizado:
 
 Contenedor encargado de generar y retornar la imagen de un boxplot correspondiente a cada columna de la base de datos.
 
-Nombre del contenedor:
+Nombre de imagen:
 
 - jmorin98/plot:latest
 
-Variables de entrono requeridas:
+Variables de entorno:
 
 - POSTGRES_USER
 - POSTGRES_DB
@@ -123,7 +130,7 @@ Variables de entrono requeridas:
 
 Comando terminal:
 
-`docker run --name [NAME_CONTAINER] -e POSTGRES_USER=[USER_CONTAINER_POSTGRES] -e POSTGRES_DB=[BD_CONTAINER_POSTGRES] -e POSTGRES_PASSWORD=[PASSWORD_CONTAINER_POSTGRES] -e POSTGRES_PORT=[PORT_CONTAINER_POSTGRES] -e POSTGRES_HOST=[NAME_CONTAINER_POSTGRES] -e SINK_PATH=[PATH_CONTAINER] -v [LOCAL_VOLUMEN]:[PATH_CONTAINER] -p [LOCAL_PORT]:5000 --hostname [NAME_CONTAINER] --network=[NAME_NETWORK] jmorin98/plot:latest`
+`docker run --name [CONTAINER_NAME] -e POSTGRES_USER=[POSTGRES_USER] -e POSTGRES_DB=[POSTGRES_DB] -e POSTGRES_PASSWORD=[POSTGRES_PASSWORD] -e POSTGRES_PORT=[POSTGRES_PORT] -e POSTGRES_HOST=[POSTGRES_HOST] -e SINK_PATH=[SINK_PATH] -v [LOCAL_VOLUME]:[DOCKER_VOLUME] -p [LOCAL_PORT]:5000 --hostname [CONTAINER_NAME] --network=[NETWORK_NAME] jmorin98/plot:latest`
 
 Ejemplo:
 
@@ -143,3 +150,35 @@ Rutas que conforman este contenedor para ser utilizado:
 | /api/v1/plot/z_operator  | GET     | Retorna boxplot de los valores de las operaciones básicas. |
 
 #### Container 4 - Middelware
+
+Componente de software que permite la interacción con diferentes servicios, permitiendo así gestionar la comunicación entre un usuario y una piscina de servicios.
+
+![Middelware](./images/middleware.png "Middleware")
+
+Nombre de imagen:
+
+- nachocode/demo-middleware:latest
+
+Variables de entorno:
+
+- MODE: Recibe los valores LOCAL || DISTRIBUTED. Cuando recibe LOCAL, se comunica usando la red local. Cuando recibe DISTRIBUTED se comunica empleando una red virtual de docker. 
+- NODE_PORT: Puerto del nodo en el HOST.
+- NODE_HOST: Recibe el valor de 0.0.0.0 para que permita recibir peticiones de cualquier dirección IP.
+- DEBUG: Recibe True o False, respectivamente activa el modo prueba o desactiva el modo de prueba. 
+
+Comando terminal:
+
+`docker run --name [CONTAINER_NAME] -e MODE=[MODE] -e NODE_PORT=[NODE_PORT] -e NODE_HOST=[NODE_HOST] -e DEBUG=[DEBUG] -p [LOCAL_PORT]:[DOCKER_PORT] --hostname [CONTAINER_NAME] --network=[NETWORK_NAME] nachocode/demon-middleware`
+
+Ejemplo:
+`docker run --name middleware  -e MODE=DISTRIBUTED -e NODE_PORT=6666 -e NODE_HOST="0.0.0.0" -e DEBUG="False" -p 6666:6666 --hostname middleware --network=my-net nachocode/demo-middleware`
+
+
+API REST:
+
+Rutas que conforman este contenedor para ser utilizado:
+
+| RUTA                     | MÉTODO | DESCRIPCIÓN                                                |
+| ------------------------ | ------- | ----------------------------------------------------------- |
+| /api/v1/processing/[path]          | POST / GET     | Redirige las peticiones al servicio de procesamiento|
+| /api/v1/plot/[path]       | POST / GET     | Redirige las peticiones al servicio de visualizaciòn |

@@ -1,4 +1,4 @@
-CREATE TABLE ciencias
+CREATE TABLE ciencias 
 (
     x float NOT NULL,
     y float NOT NULL,
@@ -6,4 +6,4 @@ CREATE TABLE ciencias
     z_SUBSTRACT float,
     z_PRODUCT float,
     z_DIVIDE float
-)
+);
