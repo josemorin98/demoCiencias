@@ -39,7 +39,7 @@ Comando terminal:
 
 Ejemplo:
 
-`docker network create demo_net`
+`docker network create  --driver=bridge my-net`
 
 Para poder ejcutar los contenedores se necesita el siguiente comando:
 
