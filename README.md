@@ -192,7 +192,7 @@ Esta sección describe un conjunto de comandos básicos de docker:
 | docker run [OPTIONS] [DOCKER_IMAGE]                     | Despliega un contenedor virtual con las opciones declaradas y basado en una imagen establecida.                     |
 | docker rm [CONTAINER_NAME || CONTAINER_ID]              | Elimina un contenedor virtual especificando su nombre o identificador único.                                        |
 | docker ps [?OPTIONS]                                    | Permite visualizar información básica de los contenedores virtuales.                                                |
-| docker logs [?OPTIONS] [CONTAINER_NAME || CONTAINER_ID] | Recupera los mensajes que se imprimen en consola que son redirigidos al descriptor del archivo conocido como STDOUT.|
+| docker logs \[?OPTIONS\] \[CONTAINER\_NAME || CONTAINER\_ID\] | Recupera los mensajes que se imprimen en consola que son redirigidos al descriptor del archivo conocido como STDOUT.|
 
 Descripción de la sintaxis utilizada en la tabla que muestra los comandos básicos:
 - DOCKER_IMAGE: nombre de la imagen de contenedor (e.g jmorin98/processing || prostgres:latest ).
