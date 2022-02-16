@@ -63,7 +63,7 @@ Comando terminal:
 
 Ejemplo:
 
-`docker run --name postgres_db -e POSTGRES_USER=postgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /test/demo_ciencias/data:/var/lib/postgresql/data -v /home/usuario/DEMO_CIENCIAS_DATOS/DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql --hostname postgres_db --network=demo_net postgres:latest`
+`docker run --name postgres_db -e POSTGRES_USER=postgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -p 5432:5432 -v /test/demo_ciencias/data:/var/lib/postgresql/data -v /home/usuario/DEMO_CIENCIAS_DATOS/DB_demo/init.sql:/docker-entrypoint-initdb.d/init.sql --hostname postgres_db --network=demo_net -d postgres:latest`
 
 La tabla tiene el nombre de ciencias y se configura dentro del archivo `init.sql` y se conforma de la siguiente manera:
 
@@ -91,7 +91,7 @@ Comando terminal:
 
 Ejemplo:
 
-`docker run --name processing -e POSTGRES_USER=postgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -e POSTGRES_PORT=5432 -e POSTGRES_HOST=postgres_db -p 5000:5000 --hostname proccessing --network=demo_net jmorin98/processing:latest`
+`docker run --name processing -e POSTGRES_USER=postgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -e POSTGRES_PORT=5432 -e POSTGRES_HOST=postgres_db -p 5000:5000 --hostname proccessing --network=demo_net -d jmorin98/processing:latest`
 
 API REST
 
@@ -134,7 +134,7 @@ Comando terminal:
 
 Ejemplo:
 
-`docker run --name plot -e POSTGRES_USER=postgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -e POSTGRES_PORT=5432 -e POSTGRES_HOST=postgres_db -e SINK_PATH=/app/plots -v /test/demo_ciencias/plots:/app/plots -p 5001:5000 --hostname plot --network=demo_net jmorin98/plot:latest`
+`docker run --name plot -e POSTGRES_USER=postgres -e POSTGRES_DB=demo -e POSTGRES_PASSWORD=postgres -e POSTGRES_PORT=5432 -e POSTGRES_HOST=postgres_db -e SINK_PATH=/app/plots -v /test/demo_ciencias/plots:/app/plots -p 5001:5000 --hostname plot --network=demo_net -d jmorin98/plot:latest`
 
 API REST
 
@@ -171,7 +171,7 @@ Comando terminal:
 `docker run --name [CONTAINER_NAME] -e MODE=[MODE] -e NODE_PORT=[NODE_PORT] -e NODE_HOST=[NODE_HOST] -e DEBUG=[DEBUG] -p [LOCAL_PORT]:[DOCKER_PORT] --hostname [CONTAINER_NAME] --network=[NETWORK_NAME] nachocode/demon-middleware`
 
 Ejemplo:
-`docker run --name middleware  -e MODE=DISTRIBUTED -e NODE_PORT=6666 -e NODE_HOST="0.0.0.0" -e DEBUG="False" -p 6666:6666 --hostname middleware --network=my-net nachocode/demo-middleware`
+`docker run --name middleware  -e MODE=DISTRIBUTED -e NODE_PORT=6666 -e NODE_HOST="0.0.0.0" -e DEBUG="False" -p 6666:6666 --hostname middleware --network=my-net -d nachocode/demo-middleware`
 
 
 API REST:
@@ -182,3 +182,22 @@ Rutas que conforman este contenedor para ser utilizado:
 | ------------------------ | ------- | ----------------------------------------------------------- |
 | /api/v1/processing/[path]          | POST / GET     | Redirige las peticiones al servicio de procesamiento|
 | /api/v1/plot/[path]       | POST / GET     | Redirige las peticiones al servicio de visualizaciòn |
+
+#### Comandos básicos
+Esta sección describe un conjunto de comandos básicos de docker: 
+
+| COMANDO                                                 | DESCRIPCIÓN                                                                                                         |
+| ------------------------------------------              | ------------------------------------------------------------------------------------------------------------------- |
+| docker pull [DOCKER_IMAGE]                              | Descarga imágenes de contenedores que se encuentran en la plataforma de DockerHub                                   |
+| docker run [OPTIONS] [DOCKER_IMAGE]                     | Despliega un contenedor virtual con las opciones declaradas y basado en una imagen establecida.                     |
+| docker rm [CONTAINER_NAME || CONTAINER_ID]              | Elimina un contenedor virtual especificando su nombre o identificador único.                                        |
+| docker ps [?OPTIONS]                                    | Permite visualizar información básica de los contenedores virtuales.                                                |
+| docker logs [?OPTIONS] [CONTAINER_NAME || CONTAINER_ID] | Recupera los mensajes que se imprimen en consola que son redirigidos al descriptor del archivo conocido como STDOUT.|
+
+Descripción de la sintaxis utilizada en la tabla que muestra los comandos básicos:
+- DOCKER_IMAGE: nombre de la imagen de contenedor (e.g jmorin98/processing || prostgres:latest ).
+- OPTIONS: Lista de opciones que recibe el comando (e.g -p 6666:6666  || -f ).
+- CONTAINER_NAME: Nombre del contenedor.
+- CONTAINER_ID: Identificador unico del contenedor.
+
+El signo de interrogación hace referencia a que los parámetros son opcionales (e.g [?OPTIONS]).
